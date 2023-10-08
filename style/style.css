@@ -1,0 +1,139 @@
+:root {
+  --bg-main-color: #00000080;
+  --bg-accent-color: #313030eb;
+  --accent-color: #547de7;
+  --accett-color2: #8ef0f2;
+  --text-accent-color: #ffe498;
+  --text-edit-bg-color: #575757;
+  --border-color: #3f3f3f;
+  --shadow-color: #202020;
+  --document-bg-color: #070707bd;
+  --component-bg-gradient: linear-gradient(to right, #8ef0f2 0%, #547de7 100%);
+  --smokywhite: #dddbd8;
+  --black: #000000;
+  --translucent-black: #00000099;
+  --border-raidus: 10px;
+}
+
+body {
+  background: url("../assets/밤하늘.png");
+  color: var(--smokywhite);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Roboto, Oxygen, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  font-size: 1.25rem;
+  margin: 0;
+  word-break: break-all;
+}
+button {
+  all: unset;
+}
+li {
+  list-style: none;
+  padding-left: 0;
+}
+
+p {
+  color: var(--smokywhite);
+}
+
+label {
+  color: var(--text-accent-color);
+}
+
+* {
+  outline: 0;
+}
+/**/
+.app {
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+/*header*/
+.header {
+  background: var(--bg-main-color);
+  text-align: center;
+}
+.main_title {
+  margin: 20px;
+  font-size: 1.5rem;
+}
+.cartegories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-btn {
+  margin: 1em 0.8em;
+  text-align: center;
+  user-select: none; /*텍스트 영역이 클릭 및 드래그로 선택되지 않는다*/
+  padding: 1em 3em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border: none;
+  color: var(--smokywhite);
+  border-radius: var(--border-raidus);
+  background-image: var(--component-bg-gradient);
+  border-color: var(--accent-color);
+}
+
+/*main*/
+.main {
+  background-color: var(--bg-accent-color);
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: 6px;
+  scrollbar-color: var(--bg-accent-color);
+  scrollbar-face-color: var(--accent-color);
+}
+.main::-webkit-scrollbar {
+  /* Safari and Chrome */
+  background-color: var(--bg-accent-color);
+  width: 6px;
+}
+
+.main::-webkit-scrollbar-thumb {
+  /* Safari and Chrome */
+  background-color: var(--accent-color);
+}
+
+
+/*footer*/
+.footer {
+  font-size: 0.8rem;
+  margin: 10px;
+  background-color: var(--bg-main-color);
+}
+/*modal*/
+.modal_container {
+  position: absolute;
+  display: none;
+  gap: 20px;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-raidus);
+  background: var(--document-bg-color);
+  width: 280px;
+  padding: 20px;
+  transform: translate(50%, -50%);
+  right: 50%;
+  top: 50%;
+}
+
+.modal_btn {
+  color: var(--smokywhite);
+  background: var(--component-bg-gradient);
+  border-radius: var(--border-raidus);
+  padding: 10px;
+  width: 50%;
+  margin: 0 auto;
+  border: none;
+}

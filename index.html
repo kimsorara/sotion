@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sotion</title>
+    <link href="./style/style.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
+      rel="stylesheet"
+    />
+    <script type="module" defer src="./build/main.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <h1 class="main_title">SOTION</h1>
+        <ul class="cartegories">
+          <li><button id="new-image" class="create-btn">Image</button></li>
+          <li><button id="new-video" class="create-btn">Video</button></li>
+          <li><button id="new-note" class="create-btn">Note</button></li>
+          <li><button id="new-todo" class="create-btn">Todo</button></li>
+        </ul>
+      </header>
+      <main class="main"></main>
+      <form class="modal_container">
+        <div class="title"><label></label><input type="text" required /></div>
+        <div class="content"><label></label><input type="text" required /></div>
+        <button type="submit" class="modal_btn">추가</button>
+      </form>
+      <footer class="footer">
+        <p>@Copyright by clone Notion. all right reserved.</p>
+      </footer>
+    </div>
+  </body>
+</html>
+<section class="image"></section>
