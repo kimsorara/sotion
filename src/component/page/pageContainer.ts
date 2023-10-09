@@ -3,11 +3,18 @@ import { BaseComponent, Component } from "../component.js";
 export interface Composable {
   addChild(child: Component): void;
 }
-
+//di
+interface SectionContainer extends Component, Composable {
+  setOncloseListner(listner: OncloseListener): void;
+}
 type OncloseListener = () => void;
-class PateItemComponent
+
+type PageItemMaper = {
+  new (): SectionContainer;
+};
+export class PageItemComponent
   extends BaseComponent<HTMLElement>
-  implements Composable
+  implements SectionContainer
 {
   private closeListner?: OncloseListener;
   constructor() {
@@ -33,11 +40,12 @@ export class pageComponent
   extends BaseComponent<HTMLUListElement>
   implements Composable
 {
-  constructor() {
+  constructor(private pageItemMaper: PageItemMaper) {
     super("<ul class='page'></ul>");
   }
   addChild(section: Component) {
-    const item = new PateItemComponent();
+    // const item = new PageItemComponent(); //한가지만 만들수 있다 =>재사용 할수 있게
+    const item = new this.pageItemMaper();
     item.addChild(section);
     item.attachTo(this.element, "beforeend");
     item.setOncloseListner(() => {
