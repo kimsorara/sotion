@@ -1,9 +1,12 @@
 import { BaseComponent } from "../../../component.js";
-
-export class UrlInput extends BaseComponent<HTMLInputElement> {
+import { UrlData } from "../dialog.js";
+export class UrlInput
+  extends BaseComponent<HTMLInputElement>
+  implements UrlData
+{
   constructor() {
     super(
-      '<from ><div class="box"> <label for="title">title</label> <input type="text" id="title" /> </div> <div class="box"> <label for="url">contents</label> <input type="text" id="url"/></input></div></from >'
+      '<from ><div class="box"> <label for="title">Title</label> <input type="text" id="title"/> </div><div class="box"> <label for="url">URL</label> <input type="text" id="url"/></input></div></from >'
     );
   }
   get title() {

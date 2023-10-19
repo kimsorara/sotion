@@ -2,7 +2,14 @@ import { BaseComponent, Component } from "../../component.js";
 import { Composable } from "../pageContainer.js";
 type OnCloseListner = () => void;
 type OnAddListner = () => void;
-
+export interface UrlData {
+  readonly title: string;
+  readonly url: string;
+}
+export interface TextData {
+  readonly title: string;
+  readonly contents: string;
+}
 export class InputDiaLog
   extends BaseComponent<HTMLElement>
   implements Composable
@@ -11,7 +18,7 @@ export class InputDiaLog
   addListner?: OnAddListner;
   constructor() {
     super(
-      '<dialog class="dialog"><div class="dialog__container"> <button class="dialog-add">add</button><div class="dialog-body"></div> <button class="dialog-close">close</button></div></dialog>'
+      '<dialog class="dialog"><div class="dialog__container"><button class="dialog-close">close</button><div class="dialog-body"></div> <button class="dialog-add">add</button> </div></dialog>'
     );
     const close = this.element.querySelector(".dialog-close")! as HTMLElement;
     close.onclick = () => {

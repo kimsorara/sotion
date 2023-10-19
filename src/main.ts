@@ -6,73 +6,81 @@ import { TodoComponent } from "./component/page/item/todo.js";
 import { Component } from "./component/component.js";
 import { Composable } from "./component/page/pageContainer.js";
 import { PageItemComponent } from "./component/page/pageContainer.js";
-import { InputDiaLog } from "./component/page/dialog/dialog.js";
+import {
+  InputDiaLog,
+  TextData,
+  UrlData,
+} from "./component/page/dialog/dialog.js";
 import { UrlInput } from "./component/page/dialog/input/urlInput.js";
 import { TextInput } from "./component/page/dialog/input/textInput.js";
+type InputComponentConstructor<T = (UrlData | TextData) & Component> = {
+  new (): T;
+};
 class Main {
   private readonly page: Component & Composable;
-  constructor(appRoot: HTMLElement, dialogRoot: HTMLElement) {
+  //dialogRoot는 클래스 안에 있어 접근할려는  private사용
+  constructor(appRoot: HTMLElement, private dialogRoot: HTMLElement) {
     this.page = new pageComponent(PageItemComponent);
     this.page.attachTo(appRoot);
-
-    const imgBtn = document.querySelector("#new-image")! as HTMLButtonElement;
-    imgBtn.addEventListener("click", () => {
+    this.bindElenentToDialog<UrlInput>(
+      "#new-image",
+      UrlInput,
+      (input: UrlInput) => new ImageComponent(input.title, input.url)
+    );
+    this.bindElenentToDialog<UrlInput>(
+      "#new-video",
+      UrlInput,
+      (input: UrlInput) => new VideoComponent(input.title, input.url)
+    );
+    this.bindElenentToDialog<TextInput>(
+      "#new-note",
+      TextInput,
+      (input: TextInput) => new NoteComponent(input.title, input.contents)
+    );
+    this.bindElenentToDialog<TextInput>(
+      "#new-todo",
+      TextInput,
+      (input: TextInput) => new TodoComponent(input.title, input.contents)
+    );
+    this.page.addChild(
+      new ImageComponent("Image Title", "https://picsum.photos/800/400")
+    );
+    this.page.addChild(
+      new VideoComponent("Video Title", "https://youtu.be/D7cwvvA7cP0")
+    );
+    this.page.addChild(
+      new NoteComponent("Note Title", "Don't forget to code your dream")
+    );
+    this.page.addChild(new TodoComponent("Todo Title", "TypeScript Course!"));
+    this.page.addChild(
+      new ImageComponent("Image Title", "https://picsum.photos/800/400")
+    );
+    this.page.addChild(
+      new VideoComponent("Video Title", "https://youtu.be/D7cwvvA7cP0")
+    );
+    this.page.addChild(
+      new NoteComponent("Note Title", "Don't forget to code your dream")
+    );
+    this.page.addChild(new TodoComponent("Todo Title", "TypeScript Course!"));
+  }
+  private bindElenentToDialog<T extends (UrlData | TextData) & Component>(
+    selector: string,
+    InputComponent: InputComponentConstructor<T>,
+    makeSection: (input: T) => Component
+  ) {
+    const selectBtn = document.querySelector(selector)! as HTMLButtonElement;
+    selectBtn.addEventListener("click", () => {
+      const inputSection = new InputComponent();
       const dialog = new InputDiaLog();
-      const urlSection = new UrlInput();
-      dialog.addChild(urlSection);
-      dialog.attachTo(dialogRoot);
+      dialog.addChild(inputSection);
+      dialog.attachTo(this.dialogRoot);
       dialog.setOncloseListner(() => {
-        dialog.removeFrom(dialogRoot);
+        dialog.removeFrom(this.dialogRoot);
       });
       dialog.setOnaddListner(() => {
-        const image = new ImageComponent(urlSection.title, urlSection.url);
-        this.page.addChild(image);
-        dialog.removeFrom(dialogRoot);
-      });
-    });
-    const videoBtn = document.querySelector("#new-video")! as HTMLButtonElement;
-    videoBtn.addEventListener("click", () => {
-      const dialog = new InputDiaLog();
-      const urlSection = new UrlInput();
-      dialog.addChild(urlSection);
-      dialog.attachTo(dialogRoot);
-      dialog.setOncloseListner(() => {
-        dialog.removeFrom(dialogRoot);
-      });
-      dialog.setOnaddListner(() => {
-        const video = new VideoComponent(urlSection.title, urlSection.url);
-        this.page.addChild(video);
-        dialog.removeFrom(dialogRoot);
-      });
-    });
-    const noteBtn = document.querySelector("#new-note")! as HTMLButtonElement;
-    noteBtn.addEventListener("click", () => {
-      const dialog = new InputDiaLog();
-      const textSection = new TextInput();
-      dialog.addChild(textSection);
-      dialog.attachTo(dialogRoot);
-      dialog.setOncloseListner(() => {
-        dialog.removeFrom(dialogRoot);
-      });
-      dialog.setOnaddListner(() => {
-        const note = new NoteComponent(textSection.title, textSection.contents);
-        this.page.addChild(note);
-        dialog.removeFrom(dialogRoot);
-      });
-    });
-    const todoBtn = document.querySelector("#new-todo")! as HTMLButtonElement;
-    todoBtn.addEventListener("click", () => {
-      const dialog = new InputDiaLog();
-      const textSection = new TextInput();
-      dialog.addChild(textSection);
-      dialog.attachTo(dialogRoot);
-      dialog.setOncloseListner(() => {
-        dialog.removeFrom(dialogRoot);
-      });
-      dialog.setOnaddListner(() => {
-        const todo = new TodoComponent(textSection.title, textSection.contents);
-        this.page.addChild(todo);
-        dialog.removeFrom(dialogRoot);
+        const make = makeSection(inputSection);
+        this.page.addChild(make);
+        dialog.removeFrom(this.dialogRoot);
       });
     });
   }

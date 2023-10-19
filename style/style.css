@@ -3,13 +3,13 @@
   --bg-accent-color: #313030eb;
   --accent-color: #547de7;
   --accett-color2: #8ef0f2;
-  --text-accent-color: #ffe498;
-  --text-edit-bg-color: #575757;
+  --text-accent-color: #575757;
+  --text-edit-bg-color: #252c3d;
   --border-color: #3f3f3f;
   --shadow-color: #202020;
   --document-bg-color: #070707bd;
   --component-bg-gradient: linear-gradient(to right, #8ef0f2 0%, #547de7 100%);
-  --smokywhite: #dddbd8;
+  --smokywhite: #f1e6d5;
   --black: #000000;
   --translucent-black: #00000099;
   --border-raidus: 10px;
@@ -41,11 +41,17 @@ p {
 }
 
 label {
-  color: var(--text-accent-color);
+  color: var(--smokywhite);
 }
-
+input,
+textarea {
+  background-color: var(--text-edit-bg-color);
+  color: var(--smokywhite);
+  font-size: 1.5rem;
+}
 * {
   outline: 0;
+  box-sizing: border-box;
 }
 /**/
 .app {
@@ -70,14 +76,15 @@ label {
   justify-content: center;
 }
 
-.create-btn {
+.create-btn,
+.dialog-add {
   margin: 1em 0.8em;
   text-align: center;
   user-select: none; /*텍스트 영역이 클릭 및 드래그로 선택되지 않는다*/
-  padding: 1em 3em;
+  padding: 0.8em 2em;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 0.8rem;
+  font-size: 1rem;
   border: none;
   color: var(--smokywhite);
   border-radius: var(--border-raidus);
@@ -89,6 +96,8 @@ label {
 .main {
   background-color: var(--bg-accent-color);
   height: 100%;
+  width: 100%;
+  max-width: 1000px;
   overflow-y: auto;
   scrollbar-width: 6px;
   scrollbar-color: var(--bg-accent-color);
@@ -119,6 +128,11 @@ label {
   background-color: var(--document-bg-color);
 }
 
+.box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
 .dialog__container {
   display: flex;
   flex-direction: column;
@@ -126,16 +140,99 @@ label {
   padding: 0.4em;
   width: 30em;
   background: var(--bg-accent-color);
-  background: var(--component-bg-gradient);
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   box-shadow: 2px 2px 40px var(--shadow-color);
+}
+.dialog-close {
+  align-self: flex-end;
+  padding: 0.2rem;
+  color: var(--accent-color);
+  font-size: 18px;
+  margin: 3px;
+  transition: color 500ms ease;
+}
+.dialog-close:hover,
+.dialog-close:focus {
+  transform: scale(1.5);
+  color: var(--smokywhite);
+  text-decoration: none;
+  cursor: pointer;
+}
+/*pageitem */
+.page-item {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 2px 2px 6px var(--shadow-color);
+  background: var(--bg-accent-color);
+}
+
+.page-item__controls {
+  padding-right: 1.5em;
+  font-size: 1.5rem;
+}
+
+.page-item__title {
+  margin: 1rem;
+  color: var(--smokywhite);
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+
+.page-item__body {
+  width: 100%;
 }
 /*footer*/
 .footer {
   font-size: 0.8rem;
   margin: 10px;
   background-color: var(--bg-main-color);
+}
+/* -- Image & Video -- */
+.image__box,
+.video__box {
+  display: flex;
+  width: 80%;
+  height: 200px;
+}
+
+.image__preview,
+.video__iframe {
+  flex: 60% 1 1;
+}
+
+.video__title,
+.image__title {
+  flex: 40% 1 1;
+  margin-left: 0.5em;
+}
+
+.video__iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+}
+
+.image__thumbnail {
+  width: 100%;
+  height: 100%;
+}
+
+/* -- Note -- */
+.note {
+  padding: 0.5em;
+}
+/* -- TODO -- */
+.todo {
+  padding: 0.5em;
+}
+
+.note__body,
+.todo-label {
+  padding: 1em;
+  color: var(--smokywhite);
 }
 /*modal*/
 .modal_container {
@@ -161,4 +258,23 @@ label {
   width: 50%;
   margin: 0 auto;
   border: none;
+}
+/*drag & drop*/
+.mute-children * {
+  pointer-events: none;
+}
+.drag-start {
+  animation: drag-start 250ms;
+  opacity: 0.5;
+}
+@keyframes drag-start {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+.drag-area {
+  border: 2px solid var(--accent-color);
 }
