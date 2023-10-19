@@ -278,3 +278,40 @@ textarea {
 .drag-area {
   border: 2px solid var(--accent-color);
 }
+@media (max-width: 540px) {
+  input,
+  textarea {
+    font-size: 0.6rem;
+  }
+  .app {
+    max-width: 380px;
+    font-size: 0.8rem;
+  }
+
+  .create-btn,
+  .dialog-add {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.7rem;
+  }
+  .main {
+    max-width: 380px;
+  }
+  .image__box,
+  .video__box {
+    display: flex;
+    width: 90%;
+    height: 100px;
+  }
+  .page-item__title {
+    font-size: 0.8rem;
+  }
+  .note__body,
+  .todo-label {
+    font-size: 0.6rem;
+    padding: 0;
+  }
+  .page-item__controls {
+    padding-right: 1em;
+    font-size: 1rem;
+  }
+}
